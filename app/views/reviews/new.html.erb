@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="column text-center py-4 rounded">
+    <%= simple_form_for [ @restaurant, @review ] do |f| %>
+      <%= f.input :rating, collection: 0..5 %>
+      <%= f.input :content %>
+      <%= f.submit "Submit review", class: "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+</div>

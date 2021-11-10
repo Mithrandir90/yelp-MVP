@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :find_restaurant, only: [:show]
+
   def index
     @restaurants = Restaurant.all
   end
@@ -13,14 +14,17 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.save
-    redirect_to restaurants_path(@restaurant)
+    if @restaurant.save
+      redirect_to @restaurant, notice: 'Restaurant was successfully created.'
+    else
+      render :new
+    end
   end
 
   private
 
   def restaurant_params
-    params.require(restaurants).permit(:name, :address, :phone_numeber, :category)
+    params.require(:restaurant).permit(:name, :address, :phone_number, :category)
   end
 
   def find_restaurant
